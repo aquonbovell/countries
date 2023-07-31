@@ -2,26 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --bg-color: hsl(0, 0%, 98%);
+    --text-color: hsl(200, 15%, 8%);
+    --element-color: hsl(0, 0%, 100%);
+    --input-color: hsl(0, 0%, 52%);
+    --shadow: hsl(0, 0%, 90%);
+    --theme-logo: hsl(0, 0%, 85%);
   }
-}
+  .dark {
+    --bg-color: hsl(207, 26%, 17%);
+    --text-color: hsl(0, 0%, 100%);
+    --element-color: hsl(209, 23%, 22%);
+    --input-color: hsl(0, 0%, 100%);
+    --shadow: hsl(207, 24%, 10%);
+    --theme-logo: hsl(207, 24%, 25%);
+  }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .theme:hover {
+    background-color: var(--theme-logo);
+  }
 }
