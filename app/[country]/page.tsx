@@ -86,7 +86,7 @@ export default async function CountryPage({ params }) {
               </p>
               <p className=" font-semibold py-1">
                 Languages:{" "}
-                <div className="inline-flex gap-1">
+                <div className="inline-flex gap-1 flex-wrap">
                   {languages.map((curr) => (
                     <span className="font-normal" key={curr}>
                       {curr},
