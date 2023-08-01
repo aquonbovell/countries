@@ -1,4 +1,4 @@
-import { CountryHomeProps } from "@/types";
+import { ExtendedCountrySummaryProps } from "@/types";
 import React from "react";
 
 export default function Country({
@@ -7,13 +7,14 @@ export default function Country({
   region,
   capital,
   flag,
-}: CountryHomeProps) {
+  alt,
+}: ExtendedCountrySummaryProps) {
   return (
     <>
       <img
         className="max-w-sm mx-auto aspect-video h-[130px] object-cover "
         src={flag}
-        alt={`${name} flag`}
+        alt={alt}
       />
       <div className=" p-4">
         <h2 className=" font-extrabold text-lg py-3">{name}</h2>

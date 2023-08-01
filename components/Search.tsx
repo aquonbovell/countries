@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { MaterialSymbolsSearch } from "./MaterialSymbolsSearch";
 import { useRouter } from "next/navigation";
 
 export default function Search() {
   const router = useRouter();
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const name = e.target.value; // Get the value entered by the user
     updateSearch(name); // Call updateSearch with the current user input
@@ -23,7 +23,7 @@ export default function Search() {
   };
 
   return (
-    <form className="w-full py-5" onChange={handleSearch}>
+    <form className="w-full py-5 md:w-96">
       <label htmlFor="input" className="sr-only">
         Search for Country
       </label>

@@ -1,6 +1,5 @@
 "use client";
 import "./globals.css";
-import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import { MaterialSymbolsDarkModeOutlineRounded } from "../components/MaterialSymbolsDarkModeOutlineRounded";
 import { useEffect, useState } from "react";

@@ -1,31 +1,19 @@
 import { MaterialSymbolsArrowLeftAltRounded } from "@/components/MaterialSymbolsArrowLeftAltRounded";
-import { CountryDetailProps, CountryHomeProps } from "@/types";
+import { CountryModelDetail, CountryModelFiltersParams } from "@/types";
 import { fetchCountries } from "@/utils";
 import Link from "next/link";
 
-export default async function CountryPage({ params }) {
+export default async function CountryPage({
+  params,
+}: CountryModelFiltersParams) {
   // Your logic to fetch data for the specific country using the 'country' variable
 
-  const allCountries: CountryDetailProps[] = await fetchCountries(
+  const allCountries: CountryModelDetail[] = await fetchCountries(
     {
       name: params.country || "",
     },
     true
   );
-  const currencies = [];
-  for (const key in allCountries[0].currencies) {
-    if (Object.prototype.hasOwnProperty.call(allCountries[0].currencies, key)) {
-      const element = allCountries[0].currencies[key];
-      currencies.push(element.name);
-    }
-  }
-  const languages = [];
-  for (const key in allCountries[0].languages) {
-    if (Object.prototype.hasOwnProperty.call(allCountries[0].languages, key)) {
-      const element = allCountries[0].languages[key];
-      languages.push(element);
-    }
-  }
   return (
     <div className="container px-4 py-7 w-full mx-auto">
       <Link
@@ -45,7 +33,7 @@ export default async function CountryPage({ params }) {
               <p className="font-semibold py-1">
                 Native Name:{" "}
                 <span className="font-normal">
-                  {allCountries[0].nativeName}
+                  {allCountries[0].nativename}
                 </span>
               </p>
               <p className="font-semibold py-1">
@@ -70,14 +58,12 @@ export default async function CountryPage({ params }) {
             <div className=" pt-6 sm:pt-0">
               <p className=" font-semibold py-1">
                 Top Level Domain:{" "}
-                <span className="font-normal">
-                  {allCountries[0].topLevelDomain}
-                </span>
+                <span className="font-normal">{allCountries[0].tld}</span>
               </p>
               <p className=" font-semibold py-1">
                 Currencies:{" "}
                 <div className="inline-flex">
-                  {currencies.map((curr) => (
+                  {allCountries[0].currencies?.map((curr) => (
                     <span className="font-normal" key={curr}>
                       {curr}
                     </span>
@@ -87,11 +73,17 @@ export default async function CountryPage({ params }) {
               <p className=" font-semibold py-1">
                 Languages:{" "}
                 <div className="inline-flex gap-1 flex-wrap">
-                  {languages.map((curr) => (
-                    <span className="font-normal" key={curr}>
-                      {curr},
-                    </span>
-                  ))}
+                  {allCountries[0].languages?.map((lang, index) =>
+                    index + 1 === allCountries[0].languages?.length ? (
+                      <span className="font-normal" key={lang}>
+                        {lang}
+                      </span>
+                    ) : (
+                      <span className="font-normal" key={lang}>
+                        {lang},
+                      </span>
+                    )
+                  )}
                 </div>
               </p>
             </div>
