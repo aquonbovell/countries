@@ -19,8 +19,10 @@ export default async function Home({ searchParams }) {
 
   return (
     <main className="px-4 py-2 container mx-auto">
-      <Search />
-      <Filter />
+      <div className="md:flex justify-between">
+        <Search />
+        <Filter />
+      </div>
       <div className="grid grid-cols-resp  place-items-center gap-4 w-full ">
         {!isDataEmpty &&
           allCountries.map((country: CountryHomeProps) => (

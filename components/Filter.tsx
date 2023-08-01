@@ -17,7 +17,7 @@ export default function Filter() {
     router.push(newPathName);
   };
   return (
-    <div className=" relative  h-20 py-4 w-16 justify-start  self-start">
+    <div className=" relative h-20 py-4 w-36 justify-start self-start md:self-center">
       <Listbox
         value={selectedRegion}
         onChange={(e) => {
