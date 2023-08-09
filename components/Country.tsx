@@ -1,4 +1,4 @@
-import { ExtendedCountrySummaryProps } from "@/types";
+import { CountryModelSummary } from "@/types";
 import React from "react";
 
 export default function Country({
@@ -8,7 +8,7 @@ export default function Country({
   capital,
   flag,
   alt,
-}: ExtendedCountrySummaryProps) {
+}: CountryModelSummary) {
   return (
     <>
       <img
