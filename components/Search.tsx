@@ -23,7 +23,7 @@ export default function Search() {
   };
 
   return (
-    <form className="w-full py-5 md:w-96">
+    <form className="w-full py-5 md:w-96" onChange={handleSearch}>
       <label htmlFor="input" className="sr-only">
         Search for Country
       </label>
