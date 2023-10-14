@@ -17,7 +17,7 @@ export default function Filter() {
     router.push(newPathName);
   };
   return (
-    <div className=" relative h-20 py-4 w-36 justify-start self-start md:self-center">
+    <div className="relative h-20 py-4 w-36 justify-end self-end md:self-center">
       <Listbox
         value={selectedRegion}
         onChange={(e) => {
@@ -25,15 +25,15 @@ export default function Filter() {
           updateSearch(e);
         }}
       >
-        <Listbox.Button className="   bg-skin-element p-3 font-semibold rounded-lg absolute left-0 w-max shadow shadow-skin-shadow">
+        <Listbox.Button className="bg-skin-element p-3 font-semibold rounded-lg absolute left-0 md:left-[unset] md:right-0 w-max shadow shadow-skin-shadow">
           {selectedRegion}
         </Listbox.Button>
-        <Listbox.Options className=" absolute  top-[4.5rem] shadow  shadow-skin-shadow  bg-skin-element w-36 rounded-lg flex gap flex-col">
+        <Listbox.Options className="absolute  top-[4.5rem] shadow  shadow-skin-shadow  bg-skin-element w-36 rounded-lg flex gap flex-col">
           {regions.map((region) => (
             <Listbox.Option
               key={region}
               value={region}
-              className="  px-3 py-1 font-semibold cursor-pointer hover:bg-skin-base"
+              className="px-3 py-1 font-semibold cursor-pointer hover:bg-skin-base"
             >
               {region}
             </Listbox.Option>
