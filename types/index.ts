@@ -1,5 +1,6 @@
 export interface Country {
-  name: {
+  name: string;
+  n: {
     common: string;
     official: string;
 
@@ -10,7 +11,8 @@ export interface Country {
       };
     };
   };
-  tld: string[];
+  nativeName: string;
+  topLevelDomain: string[];
   cca2: string;
   ccn3: string;
   cca3: string;
@@ -32,9 +34,14 @@ export interface Country {
   altSpellings: string[];
   region: string;
   subregion: string;
-  languages: {
-    deu: string;
-  };
+  languages: [
+    {
+      iso639_1: string;
+      iso639_2: string;
+      name: string;
+      nativeName: string;
+    }
+  ];
   translations: {
     [languageCode: string]: {
       official: string;
@@ -88,6 +95,11 @@ export interface Country {
       regex: string;
     };
   };
+}
+
+export interface CResponse {
+  countries: Country[];
+  country: Country;
 }
 
 export const SelectCountryModelSummary = {
