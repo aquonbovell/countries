@@ -1,13 +1,24 @@
 "use client";
 import { Listbox } from "@headlessui/react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
 export default function Filter() {
   const [selectedRegion, setSelectedRegion] = useState("Filter By Region");
   const router = useRouter();
 
+  useEffect(() => {
+    // Check if the code is running on the client side
+    if (typeof window !== "undefined") {
+      const selected = new URLSearchParams(window.location.search);
+      const regionParam = selected.get("region");
+      if (regionParam !== null) {
+        // Check if regionParam is not null
+        setSelectedRegion(regionParam);
+      }
+    }
+  }, []);
   const updateSearch = (name: string) => {
     const searchParams = new URLSearchParams(window.location.search);
     name ? searchParams.set("region", name) : searchParams.delete("name");
