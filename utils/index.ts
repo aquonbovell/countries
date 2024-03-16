@@ -15,13 +15,13 @@ export async function fetchCountries(
   try {
     const response: Response = detailed
       ? await fetch(
-          `https://countries-api-ev5k.onrender.com/api/countries/single/${
+          `https://countries-api-addd.onrender.com/api/countries/single/${
             filters.name.toLowerCase().charAt(0).toUpperCase() +
             filters.name.slice(1)
           }`
         )
       : await fetch(
-          `https://countries-api-ev5k.onrender.com/api/countries/all?limit=1000`
+          `https://countries-api-addd.onrender.com/api/countries/all?limit=1000`
         );
     const result: CResponse = await response.json();
     const countries: (CountryModelDetail | CountryModelSummary)[] = [];
