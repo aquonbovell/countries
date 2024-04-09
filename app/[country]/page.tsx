@@ -50,7 +50,7 @@ export default async function CountryPage({
               <p className=" font-semibold py-1">
                 Currencies:{" "}
                 <div className="inline-flex">
-                  {Object.values(country.currencies).map((curr: any) => (
+                  {country.currencies.length >0 && Object.values(country.currencies).map((curr: any) => (
                     <span className="font-normal" key={curr.name}>
                       {curr.name}
                     </span>
@@ -60,13 +60,14 @@ export default async function CountryPage({
               <p className=" font-semibold py-1">
                 Languages:{" "}
                 <div className="inline-flex gap-1 flex-wrap">
-                  {Object.values(country.languages).map(
-                    (lang: any, index: any) => (
-                      <span className="font-normal" key={index}>
-                        {lang}
-                      </span>
-                    )
-                  )}
+                  {country.languages.length1 > 0 &&
+                    Object.values(country.languages).map(
+                      (lang: any, index: any) => (
+                        <span className="font-normal" key={index}>
+                          {lang}
+                        </span>
+                      )
+                    )}
                 </div>
               </p>
             </div>
