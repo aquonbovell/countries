@@ -26,7 +26,7 @@ export async function fetchCountries(
           region: country.region,
           capital: country.capital,
           flag: country.flags.png,
-          alt: country.name.flags?.alt || country.name.common,
+          alt: country.flags?.alt || country.name.common,
         });
       });
     return countries;
