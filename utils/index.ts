@@ -1,74 +1,61 @@
-import {
-  CResponse,
-  Country,
-  CountryModelDetail,
-  CountryModelFilters,
-  CountryModelSummary,
-  SelectCountryModelDetail,
-  SelectCountryModelSummary,
-} from "@/types";
+import { CountryModelFilters } from "@/types";
 
 export async function fetchCountries(
-  filters: CountryModelFilters,
-  detailed: boolean
-): Promise<(CountryModelDetail | CountryModelSummary)[]> {
+  filters: CountryModelFilters
+): Promise<any[]> {
   try {
-    const response: Response = detailed
-      ? await fetch(
-          `https://countries-api-addd.onrender.com/api/countries/single/${
-            filters.name.toLowerCase().charAt(0).toUpperCase() +
-            filters.name.slice(1)
-          }`
-        )
-      : await fetch(
-          `https://countries-api-addd.onrender.com/api/countries/all?limit=1000`
+    const response: Response = await fetch(
+      "https://countries-api-addd.onrender.com/api/countries/all"
+    );
+    const result: any = await response.json();
+    const countries: any[] = [];
+    result.countries
+      .filter((country: any) => {
+        return (
+          country.name.common
+            .toLowerCase()
+            .includes(filters.name.toLowerCase()) &&
+          (!filters.region ||
+            country.region.toLowerCase().includes(filters.region.toLowerCase()))
         );
-    const result: CResponse = await response.json();
-    const countries: (CountryModelDetail | CountryModelSummary)[] = [];
-    detailed
-      ? countries.push(
-          await {
-            name: result.country.name,
-            nativename: result.country.nativeName,
-            population: result.country.population,
-            region: result.country.region,
-            subregion: result.country.subregion,
-            capital: result.country.capital,
-            flag: result.country.flag,
-            alt: `The flag of ${result.country.name}`,
-            tld: result.country.topLevelDomain[0],
-            currencies: Object.values(result.country.currencies).map(
-              (currency) => {
-                return currency.name;
-              }
-            ),
-            languages: result.country.languages.map((language) => {
-              return language.name;
-            }),
-            borders: result.country.borders,
-          }
-        )
-      : result.countries
-          .filter(({ name, region }: Country) => {
-            return (
-              name.toLowerCase().includes(filters.name.toLowerCase()) &&
-              (!filters.region ||
-                region.toLowerCase().includes(filters.region.toLowerCase()))
-            );
-          })
-          .forEach(({ name, population, region, capital, flag }: Country) => {
-            const country: CountryModelSummary = {
-              name: name,
-              population: population,
-              region: region,
-              capital: capital,
-              flag: flag,
-              alt: `The flag of ${name}`,
-            };
-            countries.push(country);
-          });
-
+      })
+      .forEach((country: any) => {
+        countries.push({
+          name: country.name.common,
+          population: country.population,
+          region: country.region,
+          capital: country.capital,
+          flag: country.flags.png,
+          alt: country.name.flags?.alt || country.name.common,
+        });
+      });
     return countries;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+export async function fetchCountry(filters: CountryModelFilters): Promise<any> {
+  try {
+    const response: Response = await fetch(
+      `https://countries-api-addd.onrender.com/api/countries/single/${filters.name}`
+    );
+    const result: any = await response.json();
+    const country = {
+      name: result.country.name.common,
+      population: result.country.population,
+      region: result.country.region,
+      subregion: result.country.subregion,
+      capital: result.country.capital,
+      flag: result.country.flags.png,
+      alt: result.country.flags.alt,
+      tld: result.country.tld,
+      currencies: result.country.currencies,
+      languages: result.country.languages,
+      borders: result.country.borders,
+    };
+    return country;
   } catch (error) {
     console.log(error);
     return [];

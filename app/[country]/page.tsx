@@ -1,19 +1,14 @@
 import { MaterialSymbolsArrowLeftAltRounded } from "@/components/MaterialSymbolsArrowLeftAltRounded";
-import { CountryModelDetail, CountryModelFiltersParams } from "@/types";
-import { fetchCountries } from "@/utils";
+import { CountryModelFiltersParams } from "@/types";
+import { fetchCountry } from "@/utils";
 import Link from "next/link";
 
 export default async function CountryPage({
   params,
 }: CountryModelFiltersParams) {
-  // Your logic to fetch data for the specific country using the 'country' variable
-
-  const allCountries: CountryModelDetail[] = await fetchCountries(
-    {
-      name: params.country || "",
-    },
-    true
-  );
+  const country: any = await fetchCountry({
+    name: params.country || "",
+  });
   return (
     <div className="container px-4 py-7 w-full mx-auto">
       <Link
@@ -23,49 +18,41 @@ export default async function CountryPage({
         <MaterialSymbolsArrowLeftAltRounded /> Back
       </Link>
       <div className="py-8 sm:grid sm:grid-cols-2 sm:gap-8">
-        <img src={allCountries[0].flag} />
+        <img src={country.flag} />
         <div className="">
-          <h2 className="font-bold py-5 sm:text-xl sm:py-3">
-            {allCountries[0].name}
-          </h2>
+          <h2 className="font-bold py-5 sm:text-xl sm:py-3">{country.name}</h2>
           <div className="sm:grid sm:grid-cols-2">
             <div>
               <p className="font-semibold py-1">
                 Native Name:{" "}
-                <span className="font-normal">
-                  {allCountries[0].nativename}
-                </span>
+                <span className="font-normal">{country.nativename}</span>
               </p>
               <p className="font-semibold py-1">
                 Population:{" "}
-                <span className="font-normal">
-                  {allCountries[0].population}
-                </span>
+                <span className="font-normal">{country.population}</span>
               </p>
               <p className="font-semibold py-1">
-                Region:{" "}
-                <span className="font-normal">{allCountries[0].region}</span>
+                Region: <span className="font-normal">{country.region}</span>
               </p>
               <p className="font-semibold py-1">
                 Sub Region:{" "}
-                <span className="font-normal">{allCountries[0].subregion}</span>
+                <span className="font-normal">{country.subregion}</span>
               </p>
               <p className="font-semibold py-1">
-                Capital:{" "}
-                <span className="font-normal">{allCountries[0].capital}</span>
+                Capital: <span className="font-normal">{country.capital}</span>
               </p>
             </div>
             <div className=" pt-6 sm:pt-0">
               <p className=" font-semibold py-1">
                 Top Level Domain:{" "}
-                <span className="font-normal">{allCountries[0].tld}</span>
+                <span className="font-normal">{country.tld}</span>
               </p>
               <p className=" font-semibold py-1">
                 Currencies:{" "}
                 <div className="inline-flex">
-                  {allCountries[0].currencies?.map((curr) => (
-                    <span className="font-normal" key={curr}>
-                      {curr}
+                  {Object.values(country.currencies).map((curr: any) => (
+                    <span className="font-normal" key={curr.name}>
+                      {curr.name}
                     </span>
                   ))}
                 </div>
@@ -73,14 +60,10 @@ export default async function CountryPage({
               <p className=" font-semibold py-1">
                 Languages:{" "}
                 <div className="inline-flex gap-1 flex-wrap">
-                  {allCountries[0].languages?.map((lang, index) =>
-                    index + 1 === allCountries[0].languages?.length ? (
-                      <span className="font-normal" key={lang}>
+                  {Object.values(country.languages).map(
+                    (lang: any, index: any) => (
+                      <span className="font-normal" key={index}>
                         {lang}
-                      </span>
-                    ) : (
-                      <span className="font-normal" key={lang}>
-                        {lang},
                       </span>
                     )
                   )}

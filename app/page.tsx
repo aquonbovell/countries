@@ -6,12 +6,11 @@ import { fetchCountries } from "@/utils";
 import Search from "@/components/Search";
 
 export default async function Home({ searchParams }: CountryModelSearchParams) {
-  const allCountries: CountryModelSummary[] = await fetchCountries(
+  const allCountries: any[] = await fetchCountries(
     {
       name: searchParams.name || "",
       region: searchParams.region || "",
-    },
-    false
+    }
   );
   const isDataEmpty = !allCountries || allCountries.length < 1;
 

@@ -1,6 +1,6 @@
 export interface Country {
-  name: string;
-  n: {
+  // name: string;
+  name: {
     common: string;
     official: string;
 
